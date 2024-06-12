@@ -1,4 +1,5 @@
 class SubscriptionsController < ApplicationController
+  include Notifiable
   before_action :set_subscription, only: [:update]
   
   # POST /subscriptions
@@ -6,7 +7,9 @@ class SubscriptionsController < ApplicationController
     @subscriptions = Subscription.new(subscription_params)
 
     if @subscriptions.save
-      render json: @subscriptions, status: :created
+      serialized_subscription = SubscriptionSerializer.new(@subscriptions).serialized_json
+      notify_third_parties(serialized_subscription)
+      render json: serialized_subscription, status: :created
     else
       render json: @subscriptions.errors.full_messages, status: :unprocessable_entity
     end
@@ -15,7 +18,9 @@ class SubscriptionsController < ApplicationController
   # PUT /subscriptions/:id
   def update
     if @subscription.update(subscription_params)
-      render json: @subscription, status: :ok
+      serialized_subscription = SubscriptionSerializer.new(@subscription).serialized_json
+      notify_third_parties(serialized_subscription)
+      render json: serialized_subscription, status: :ok
     else
       render json: @subscription.errors.full_messages, status: :unprocessable_entity
     end

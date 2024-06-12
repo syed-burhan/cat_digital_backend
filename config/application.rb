@@ -28,5 +28,9 @@ module CatDigitalBackend
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.third_party_endpoints = [
+      'https://webhook.site/f563e9d0-e4ce-42ff-8953-709de6b8db93'
+    ]
   end
 end
