@@ -38,6 +38,13 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mswin mswin64 mingw x64_mingw ]
+  gem "pry"
+
+  # testing framework
+  gem "rspec-rails"
+
+  # create factories for existing models.
+  gem "factory_bot_rails"
 end
 
 group :development do
@@ -45,7 +52,8 @@ group :development do
   # gem "spring"
 end
 
-
+# the RFC 7519 OAuth JSON Web Token (JWT) standard.
 gem "jwt", "~> 2.8"
 
+# used to serialize ruby objects
 gem "fast_jsonapi", "~> 1.5"

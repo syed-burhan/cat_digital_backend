@@ -8,7 +8,7 @@ class SubscriptionsController < ApplicationController
 
     if @subscriptions.save
       serialized_subscription = SubscriptionSerializer.new(@subscriptions).serialized_json
-      notify_third_parties(serialized_subscription)
+      # notify_third_parties(serialized_subscription)
       render json: serialized_subscription, status: :created
     else
       render json: @subscriptions.errors.full_messages, status: :unprocessable_entity
