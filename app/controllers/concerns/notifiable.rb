@@ -4,6 +4,8 @@ require 'jwt'
 
 module Notifiable
     extend ActiveSupport::Concern
+    include AuthHelper
+
     included do
         # Notify and print all the third party apis
         def notify_third_parties(record)
@@ -21,13 +23,6 @@ module Notifiable
                     Rails.logger.error "Error notifying #{endpoint}: #{e.message}"
                 end
             end
-        end
-
-        # Return JWT auth token
-        def generate_auth_token
-            payload = { timestamp: Time.now.to_i }
-            secret = Rails.application.credentials.secret_key_base
-            JWT.encode(payload, secret, 'HS256')
         end
     end
 end
